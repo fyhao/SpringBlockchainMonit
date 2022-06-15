@@ -247,8 +247,6 @@ var Home = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      pricelist: {},
-      // TODO remove once listviewdata ok
       listviewdata: []
     };
     return _this;
@@ -279,13 +277,7 @@ var Home = /*#__PURE__*/function (_Component) {
   }, {
     key: "updateAndBroadcast",
     value: function updateAndBroadcast(data) {
-      var me = this; // TODO remove once listviewdata ok
-
-      var pricelist = me.state.pricelist;
-      pricelist[data.name] = data.price;
-      me.setState({
-        pricelist: pricelist
-      });
+      var me = this;
       var listviewdata = me.state.listviewdata;
       var found = false;
 
@@ -309,8 +301,6 @@ var Home = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var options = {};
       options.data = this.state.listviewdata;
       options.fields = [{
@@ -326,11 +316,7 @@ var Home = /*#__PURE__*/function (_Component) {
       var listviewcontent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListView__WEBPACK_IMPORTED_MODULE_1__["default"], {
         options: options
       }));
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, Object.keys(this.state.pricelist).map(function (obj, i) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
-          key: obj
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, obj), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, _this2.state.pricelist[obj]));
-      }))), listviewcontent);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Home"), listviewcontent);
     }
   }]);
 

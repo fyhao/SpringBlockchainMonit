@@ -5,7 +5,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-	  pricelist : {}, // TODO remove once listviewdata ok
 	  listviewdata : []
     };
 	
@@ -28,11 +27,6 @@ class Home extends Component {
   }	
   updateAndBroadcast(data) {
 	var me = this;
-	// TODO remove once listviewdata ok
-	var pricelist = me.state.pricelist;
-	pricelist[data.name] = data.price;
-	me.setState({pricelist});
-	
 	var listviewdata = me.state.listviewdata;
 	var found = false;
 	for(var i = 0; i < listviewdata.length; i++) {
@@ -68,13 +62,6 @@ class Home extends Component {
     return (
       <div>
         <span>Home</span>
-        <table>
-        <tbody>
-        {Object.keys(this.state.pricelist).map((obj,i) => {
-			return (<tr key={obj}><td>{obj}</td><td>{this.state.pricelist[obj]}</td></tr>)
-		})}
-		</tbody>
-        </table>
         {listviewcontent}
       </div>
     );

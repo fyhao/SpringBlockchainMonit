@@ -1,3 +1,5 @@
 [
-	{"chainid":1,"name":"Ethereum","networkurl":"https://etherscan.io","tokenpath":"/token/%s"}
+	{"chainid":1,"name":"Ethereum","networkurl":"https://etherscan.io","tokenpath":"/token/%s"},
+	{"chainid":137,"name":"Polygon","networkurl":"https://polygonscan.com","tokenpath":"/token/%s"}
+	
 ]
