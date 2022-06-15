@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fyhao.blockchainmonit.service.PriceMonitoringService;
 import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 public class SocketHandler extends TextWebSocketHandler {
 	
 	static List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+	
+	@Autowired
+	PriceMonitoringService priceMonService;
 
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message)
-			throws InterruptedException, IOException {
+			throws Exception {
 		
 		for(WebSocketSession webSocketSession : sessions) {
 			Map value = new Gson().fromJson(message.getPayload(), Map.class);
@@ -36,6 +41,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		//the messages will be broadcasted to all users.
 		sessions.add(session);
 		log.info("websocket is added: {}", session.getId());
+		priceMonService.clientRequestPriceUpdate(session);
 	}
 	
 	@Override

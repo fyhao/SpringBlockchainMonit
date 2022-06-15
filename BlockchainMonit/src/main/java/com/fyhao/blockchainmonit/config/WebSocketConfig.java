@@ -1,5 +1,6 @@
 package com.fyhao.blockchainmonit.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -10,7 +11,11 @@ import com.fyhao.blockchainmonit.ws.SocketHandler;
 @Configuration
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
+	
+	@Autowired
+	SocketHandler handler;
+	
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(new SocketHandler(), "/priceservice");
+		registry.addHandler(handler, "/priceservice");
 	}
 }
