@@ -254,7 +254,7 @@ var Home = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var me = this;
-      var ws = new WebSocket("ws://localhost:8080/name");
+      var ws = new WebSocket("ws://localhost:8080/priceservice");
 
       ws.onmessage = function (e) {
         var data = JSON.parse(e.data);
@@ -269,11 +269,6 @@ var Home = /*#__PURE__*/function (_Component) {
       pricelist[data.name] = data.price;
       me.setState({
         pricelist: pricelist
-      });
-      console.log(this.state.pricelist);
-      Object.keys(this.state.pricelist).map(function (obj, i) {
-        console.log(obj);
-        console.log(i);
       });
     }
   }, {

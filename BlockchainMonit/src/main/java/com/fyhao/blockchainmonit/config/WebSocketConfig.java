@@ -11,6 +11,6 @@ import com.fyhao.blockchainmonit.ws.SocketHandler;
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(new SocketHandler(), "/name");
+		registry.addHandler(new SocketHandler(), "/priceservice");
 	}
 }

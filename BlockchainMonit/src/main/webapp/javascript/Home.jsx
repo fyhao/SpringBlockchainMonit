@@ -11,7 +11,7 @@ class Home extends Component {
   }	
   componentDidMount() {
 	var me = this;
-	var ws = new WebSocket("ws://localhost:8080/name");
+	var ws = new WebSocket("ws://localhost:8080/priceservice");
 	ws.onmessage = e => {
 		var data = JSON.parse(e.data);
 		me.updateAndBroadcast(data);
@@ -22,11 +22,6 @@ class Home extends Component {
 	var pricelist = me.state.pricelist;
 	pricelist[data.name] = data.price;
 	me.setState({pricelist});
-	console.log(this.state.pricelist);
-	Object.keys(this.state.pricelist).map((obj,i) => {
-		console.log(obj);
-		console.log(i);
-	});
   }
   
   
