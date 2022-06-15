@@ -238,16 +238,54 @@ var Home = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(Home);
 
-  function Home() {
+  function Home(props) {
+    var _this;
+
     _classCallCheck(this, Home);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      pricelist: {}
+    };
+    return _this;
   }
 
   _createClass(Home, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var me = this;
+      var ws = new WebSocket("ws://localhost:8080/name");
+
+      ws.onmessage = function (e) {
+        var data = JSON.parse(e.data);
+        me.updateAndBroadcast(data);
+      };
+    }
+  }, {
+    key: "updateAndBroadcast",
+    value: function updateAndBroadcast(data) {
+      var me = this;
+      var pricelist = me.state.pricelist;
+      pricelist[data.name] = data.price;
+      me.setState({
+        pricelist: pricelist
+      });
+      console.log(this.state.pricelist);
+      Object.keys(this.state.pricelist).map(function (obj, i) {
+        console.log(obj);
+        console.log(i);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Home"));
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, Object.keys(this.state.pricelist).map(function (obj, i) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
+          key: obj
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, obj), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, _this2.state.pricelist[obj]));
+      }))));
     }
   }]);
 

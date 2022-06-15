@@ -5,17 +5,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 
-@Component
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
 public class SocketHandler extends TextWebSocketHandler {
 	
-	List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+	static List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message)
@@ -31,5 +35,29 @@ public class SocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		//the messages will be broadcasted to all users.
 		sessions.add(session);
+		log.info("websocket is added: {}", session.getId());
+	}
+	
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		sessions.remove(session);
+		log.info("websocket is closed: {}", session.getId());
+	}
+	
+	public void broadcast(String s) throws Exception {
+		log.info("SocketHandler broadcast {} / {}", s, sessions.size());
+		for(WebSocketSession webSocketSession : sessions) {
+			log.info("Sending {} to {}", s, webSocketSession.getId());
+			webSocketSession.sendMessage(new TextMessage(s));
+		}
+	}
+	
+	public void broadcast(Object obj) throws Exception {
+		for(WebSocketSession webSocketSession : sessions) {
+			Gson gson = new Gson();
+			String jsonstr = gson.toJson(obj);
+			log.debug("Sending {} to {}", jsonstr, webSocketSession.getId());
+			webSocketSession.sendMessage(new TextMessage(jsonstr));
+		}
 	}
 }
