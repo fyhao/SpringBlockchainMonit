@@ -1,5 +1,6 @@
 [
 	{"chainid":1,"name":"Ethereum","networkurl":"https://etherscan.io","tokenpath":"/token/%s"},
+	{"chainid":56,"name":"Binance Smart Chain","networkurl":"https://bscscan.com","tokenpath":"/token/%s"},
 	{"chainid":137,"name":"Polygon","networkurl":"https://polygonscan.com","tokenpath":"/token/%s"}
 	
 ]
