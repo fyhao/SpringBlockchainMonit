@@ -2,10 +2,12 @@ package com.fyhao.blockchainmonit.service;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -33,7 +35,7 @@ public class TokenService {
 	Resource networksFile;
 	
 	public List<BlockchainToken> getTokens() throws IOException {
-		String data = FileUtils.readFileToString(tokensFile.getFile(), "UTF-8");
+		String data = IOUtils.toString(tokensFile.getInputStream(), StandardCharsets.UTF_8);
 		ObjectMapper mapper = new ObjectMapper();
 		BlockchainToken[] tokenArray = mapper.readValue(data, BlockchainToken[].class);
 		List<BlockchainToken> tokenList = Arrays.asList(tokenArray);
@@ -52,7 +54,7 @@ public class TokenService {
 	}
 	
 	public List<BlockchainNetwork> getNetworks() throws IOException {
-		String data = FileUtils.readFileToString(networksFile.getFile(), "UTF-8");
+		String data = IOUtils.toString(networksFile.getInputStream(), StandardCharsets.UTF_8);
 		ObjectMapper mapper = new ObjectMapper();
 		BlockchainNetwork[] networkArray = mapper.readValue(data, BlockchainNetwork[].class);
 		List<BlockchainNetwork> networkList = Arrays.asList(networkArray);
