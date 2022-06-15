@@ -43,8 +43,10 @@ class Home extends Component {
 		}
 	}
 	if(!found) {
+		data.id = new Date().getTime();
 		listviewdata.push(data);
 	}
+	console.log(listviewdata);
 	me.setState({listviewdata});
   }
   
@@ -52,7 +54,7 @@ class Home extends Component {
   render() {
 	var options = {};
 	
-	options.data = this.state.data;
+	options.data = this.state.listviewdata;
 	options.fields = [
 		{heading:'Name',key:'name'},
 		{heading:'Network',key:'network'},
