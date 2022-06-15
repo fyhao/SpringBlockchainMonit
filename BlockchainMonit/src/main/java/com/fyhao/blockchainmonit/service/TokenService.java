@@ -21,6 +21,8 @@ import com.fyhao.blockchainmonit.dto.BlockchainToken;
 import com.fyhao.blockchainmonit.dto.EtherscanTokenItem;
 import com.google.gson.Gson;
 
+import lombok.SneakyThrows;
+
 
 
 @Service
@@ -36,20 +38,15 @@ public class TokenService {
 		List<BlockchainToken> tokenList = Arrays.asList(tokenArray);
 		return tokenList;
 	}
-	
-	public String getPrice(BlockchainToken token) throws URISyntaxException, JsonMappingException, JsonProcessingException {
+	@SneakyThrows(Exception.class)
+	public String getPrice(BlockchainToken token) {
 		RestTemplate restTemplate = new RestTemplate();
 	    final String baseUrl = String.format("https://etherscan.io/token/%s", token.getAddress());
 		URI uri = new URI(baseUrl);
 		ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
 		String jsonstr = StringUtils.substringBetween(result.toString(), "<script type=\"application/ld+json\">", "</script>");
 		Gson gson = new Gson();
-		try {
-			EtherscanTokenItem item = gson.fromJson(jsonstr, EtherscanTokenItem.class);
-			return item.getOffers().getPriceCurrency() + " " + item.getOffers().getPrice();	
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return null;
+		EtherscanTokenItem item = gson.fromJson(jsonstr, EtherscanTokenItem.class);
+		return item.getOffers().getPriceCurrency() + " " + item.getOffers().getPrice();	
 	}
 }
