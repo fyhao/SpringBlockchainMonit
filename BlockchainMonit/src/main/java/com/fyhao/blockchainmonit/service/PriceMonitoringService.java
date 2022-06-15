@@ -28,9 +28,9 @@ public class PriceMonitoringService {
 	    for(BlockchainToken token : tokens) {
 	    	String price = tokenService.getPrice(token);
 	    	PriceChanged pc = new PriceChanged();
-		    pc.setName(token.getName());
-		    pc.setPrice(price);
-		    handler.broadcast(pc);
+	    	pc.setName(token.getName());
+	    	pc.setPrice(price);
+	    	handler.broadcast(pc);
 	    }
 	}
 	
