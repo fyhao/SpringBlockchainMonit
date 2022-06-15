@@ -254,7 +254,18 @@ var Home = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var me = this;
-      var ws = new WebSocket("ws://localhost:8080/priceservice");
+      var loc = window.location,
+          new_uri;
+
+      if (loc.protocol === "https:") {
+        new_uri = "wss:";
+      } else {
+        new_uri = "ws:";
+      }
+
+      new_uri += "//" + loc.host;
+      new_uri += "/priceservice";
+      var ws = new WebSocket(new_uri);
 
       ws.onmessage = function (e) {
         var data = JSON.parse(e.data);

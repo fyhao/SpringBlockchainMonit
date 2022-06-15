@@ -11,7 +11,15 @@ class Home extends Component {
   }	
   componentDidMount() {
 	var me = this;
-	var ws = new WebSocket("ws://localhost:8080/priceservice");
+	var loc = window.location, new_uri;
+	if (loc.protocol === "https:") {
+	    new_uri = "wss:";
+	} else {
+	    new_uri = "ws:";
+	}
+	new_uri += "//" + loc.host;
+	new_uri += "/priceservice";
+	var ws = new WebSocket(new_uri);
 	ws.onmessage = e => {
 		var data = JSON.parse(e.data);
 		me.updateAndBroadcast(data);
