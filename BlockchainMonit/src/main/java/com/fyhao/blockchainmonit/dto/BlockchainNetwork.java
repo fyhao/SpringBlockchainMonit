@@ -6,6 +6,7 @@ import lombok.Data;
 public class BlockchainNetwork {
 
 	int chainid;
+	String name;
 	String networkurl;
 	String tokenpath;
 }

@@ -33,8 +33,8 @@ public class PriceMonitoringService {
 	    	String price = tokenService.getPrice(token);
 	    	PriceChanged pc = new PriceChanged();
 	    	pc.setName(token.getName());
+	    	pc.setNetwork(tokenService.getNetworkName(token));
 	    	pc.setPrice(price);
-	    	pc.setNetwork(token.getChainid()+"");
 	    	handler.broadcast(pc);
 	    }
 	}
@@ -45,8 +45,8 @@ public class PriceMonitoringService {
 	    	String price = tokenService.getPrice(token);
 	    	PriceChanged pc = new PriceChanged();
 	    	pc.setName(token.getName());
+	    	pc.setNetwork(tokenService.getNetworkName(token));
 	    	pc.setPrice(price);
-	    	pc.setNetwork(token.getChainid()+"");
 	    	Gson gson = new Gson();
 			String jsonstr = gson.toJson(pc);
 			session.sendMessage(new TextMessage(jsonstr));

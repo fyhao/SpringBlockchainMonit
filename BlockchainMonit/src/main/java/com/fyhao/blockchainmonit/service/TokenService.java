@@ -58,11 +58,18 @@ public class TokenService {
 		List<BlockchainNetwork> networkList = Arrays.asList(networkArray);
 		return networkList;
 	}
-	
+	public BlockchainNetwork getNetwork(BlockchainToken token) throws IOException {
+		BlockchainNetwork network = getNetworks().stream().filter(e -> e.getChainid() == token.getChainid()).findFirst().get();
+		return network;
+	}
 	public String getTokenURL(BlockchainToken token) throws IOException {
-		int chainid = token.getChainid();
-		BlockchainNetwork network = getNetworks().stream().filter(e -> e.getChainid() == chainid).findFirst().get();
+		BlockchainNetwork network = getNetwork(token);
 		String url = network.getNetworkurl() + network.getTokenpath();
 		return url;
+	}
+	
+	public String getNetworkName(BlockchainToken token) throws IOException {
+		BlockchainNetwork network = getNetwork(token);
+		return network.getName();
 	}
 }
