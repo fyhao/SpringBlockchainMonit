@@ -72,6 +72,8 @@ dependencies {
 	
 	testCompileOnly 'org.projectlombok:lombok:1.18.24'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+	
+	implementation("com.google.code.gson:gson")
 }
 configurations {
 	all {
