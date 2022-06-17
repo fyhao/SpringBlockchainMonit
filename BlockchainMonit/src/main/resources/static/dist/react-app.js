@@ -283,6 +283,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _EventManager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EventManager */ "./src/main/webapp/javascript/EventManager.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -339,6 +345,21 @@ var ListView = /*#__PURE__*/function (_Component) {
             v = field.render(v, row);
           }
 
+          if (field.clickable) {
+            var clickablestyle = {
+              cursor: 'pointer'
+            };
+
+            if (field.clickablestyle) {
+              clickablestyle = _objectSpread(_objectSpread({}, clickablestyle), field.clickablestyle);
+            }
+
+            v = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+              style: clickablestyle,
+              onClick: _this.onGridCellClick(row, field.key, v)
+            }, v);
+          }
+
           rowItems.push(v);
         });
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
@@ -375,6 +396,14 @@ var ListView = /*#__PURE__*/function (_Component) {
       var options = this.props.options;
       return function () {
         options.handleDelete(row);
+      };
+    }
+  }, {
+    key: "onGridCellClick",
+    value: function onGridCellClick(row, fieldkey, fieldvalue) {
+      var options = this.props.options;
+      return function () {
+        options.handleGridCellClick(row, fieldkey, fieldvalue);
       };
     }
   }]);
@@ -612,7 +641,8 @@ var TokenGridView = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      listviewdata: []
+      listviewdata: [],
+      filtered: ''
     };
     return _this;
   }
@@ -672,11 +702,31 @@ var TokenGridView = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      var me = this;
       var options = {};
       options.data = this.state.listviewdata;
+
+      if (this.state.filtered.length) {
+        var d = [];
+
+        for (var i = 0; i < options.data.length; i++) {
+          if (options.data[i].name == this.state.filtered) {
+            d.push(options.data[i]);
+          }
+        }
+
+        options.data = d;
+      }
+
       options.fields = [{
         heading: 'Name',
-        key: 'name'
+        key: 'name',
+        clickable: true,
+        clickablestyle: {
+          'fontWeight': 'bold'
+        }
       }, {
         heading: 'Network',
         key: 'network'
@@ -684,6 +734,19 @@ var TokenGridView = /*#__PURE__*/function (_Component) {
         heading: 'Price',
         key: 'price'
       }];
+
+      options.handleGridCellClick = function (row, fieldkey, fieldvalue) {
+        if (_this2.state.filtered.length) {
+          me.setState({
+            filtered: ''
+          });
+        } else {
+          me.setState({
+            filtered: fieldvalue
+          });
+        }
+      };
+
       var listviewcontent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListView__WEBPACK_IMPORTED_MODULE_1__["default"], {
         options: options
       }));

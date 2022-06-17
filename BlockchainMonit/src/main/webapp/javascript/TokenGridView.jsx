@@ -5,7 +5,8 @@ class TokenGridView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-	  listviewdata : []
+	  listviewdata : [],
+	  filtered : ''
     };
 	
   }	
@@ -52,15 +53,32 @@ class TokenGridView extends Component {
   
   
   render() {
+	var me = this;
 	var options = {};
-	
 	options.data = this.state.listviewdata;
+	if(this.state.filtered.length) {
+		var d = [];
+		for(var i = 0; i < options.data.length; i++) {
+			if(options.data[i].name == this.state.filtered) {
+				d.push(options.data[i]);
+			}
+		}
+		options.data = d;
+	}
 	options.fields = [
-		{heading:'Name',key:'name'},
+		{heading:'Name',key:'name',clickable:true,clickablestyle:{'fontWeight':'bold'}},
 		{heading:'Network',key:'network'},
 		{heading:'Price',key:'price'}
 	];
 	
+	options.handleGridCellClick = (row, fieldkey, fieldvalue) => {
+		if(this.state.filtered.length) {
+			me.setState({filtered:''});
+		}
+		else {
+			me.setState({filtered:fieldvalue});
+		}
+	};
 	var listviewcontent = <div>
 			<ListView options={options}/>
 			</div>;
