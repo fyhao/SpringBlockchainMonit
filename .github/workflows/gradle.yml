@@ -13,16 +13,20 @@ jobs:
           java-version: 11
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+        working-directory: ./BlockchainMonit
       - name: Build with Gradle
         run: ./gradlew build
+        working-directory: ./BlockchainMonit
       - name: generateLicenseReport with Gradle
         run: ./gradlew generateLicenseReport
+        working-directory: ./BlockchainMonit
       - name: dependencyCheckAnalyze with Gradle
         run: ./gradlew dependencyCheckAnalyze
+        working-directory: ./BlockchainMonit
       - uses: actions/upload-artifact@v1
         with:
           name: licenseDependencyReport
-          path: build/reports
+          path: BlockchainMonit/build/reports
       - uses: gradle/wrapper-validation-action@v1
       - name: Self dep-scan
         uses: AppThreat/dep-scan-action@master
