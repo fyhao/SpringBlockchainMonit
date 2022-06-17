@@ -209,6 +209,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _ListView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListView */ "./src/main/webapp/javascript/ListView.jsx");
+/* harmony import */ var _TokenGridView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TokenGridView */ "./src/main/webapp/javascript/TokenGridView.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -235,6 +236,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Home = /*#__PURE__*/function (_Component) {
   _inherits(Home, _Component);
 
@@ -246,77 +248,14 @@ var Home = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, Home);
 
     _this = _super.call(this, props);
-    _this.state = {
-      listviewdata: []
-    };
+    _this.state = {};
     return _this;
   }
 
   _createClass(Home, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var me = this;
-      var loc = window.location,
-          new_uri;
-
-      if (loc.protocol === "https:") {
-        new_uri = "wss:";
-      } else {
-        new_uri = "ws:";
-      }
-
-      new_uri += "//" + loc.host;
-      new_uri += "/priceservice";
-      var ws = new WebSocket(new_uri);
-
-      ws.onmessage = function (e) {
-        var data = JSON.parse(e.data);
-        me.updateAndBroadcast(data);
-      };
-    }
-  }, {
-    key: "updateAndBroadcast",
-    value: function updateAndBroadcast(data) {
-      var me = this;
-      var listviewdata = me.state.listviewdata;
-      var found = false;
-
-      for (var i = 0; i < listviewdata.length; i++) {
-        if (listviewdata[i].name == data.name && listviewdata[i].network == data.network) {
-          listviewdata[i].price = data.price;
-          found = true;
-        }
-      }
-
-      if (!found) {
-        data.id = new Date().getTime();
-        listviewdata.push(data);
-      }
-
-      console.log(listviewdata);
-      me.setState({
-        listviewdata: listviewdata
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var options = {};
-      options.data = this.state.listviewdata;
-      options.fields = [{
-        heading: 'Name',
-        key: 'name'
-      }, {
-        heading: 'Network',
-        key: 'network'
-      }, {
-        heading: 'Price',
-        key: 'price'
-      }];
-      var listviewcontent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListView__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        options: options
-      }));
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Home"), listviewcontent);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TokenGridView__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 
@@ -668,6 +607,137 @@ var Navigation = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./src/main/webapp/javascript/TokenGridView.jsx":
+/*!******************************************************!*\
+  !*** ./src/main/webapp/javascript/TokenGridView.jsx ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _ListView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListView */ "./src/main/webapp/javascript/ListView.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var TokenGridView = /*#__PURE__*/function (_Component) {
+  _inherits(TokenGridView, _Component);
+
+  var _super = _createSuper(TokenGridView);
+
+  function TokenGridView(props) {
+    var _this;
+
+    _classCallCheck(this, TokenGridView);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      listviewdata: []
+    };
+    return _this;
+  }
+
+  _createClass(TokenGridView, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var me = this;
+      var loc = window.location,
+          new_uri;
+
+      if (loc.protocol === "https:") {
+        new_uri = "wss:";
+      } else {
+        new_uri = "ws:";
+      }
+
+      new_uri += "//" + loc.host;
+      new_uri += "/priceservice";
+      var ws = new WebSocket(new_uri);
+
+      ws.onmessage = function (e) {
+        var data = JSON.parse(e.data);
+        me.updateAndBroadcast(data);
+      };
+    }
+  }, {
+    key: "updateAndBroadcast",
+    value: function updateAndBroadcast(data) {
+      var me = this;
+      var listviewdata = me.state.listviewdata;
+      var found = false;
+
+      for (var i = 0; i < listviewdata.length; i++) {
+        if (listviewdata[i].name == data.name && listviewdata[i].network == data.network) {
+          listviewdata[i].price = data.price;
+          found = true;
+        }
+      }
+
+      if (!found) {
+        data.id = new Date().getTime();
+        listviewdata.push(data);
+      }
+
+      console.log(listviewdata);
+      me.setState({
+        listviewdata: listviewdata
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var options = {};
+      options.data = this.state.listviewdata;
+      options.fields = [{
+        heading: 'Name',
+        key: 'name'
+      }, {
+        heading: 'Network',
+        key: 'network'
+      }, {
+        heading: 'Price',
+        key: 'price'
+      }];
+      var listviewcontent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListView__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        options: options
+      }));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, listviewcontent);
+    }
+  }]);
+
+  return TokenGridView;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TokenGridView);
+
+/***/ }),
+
 /***/ "./node_modules/classnames/index.js":
 /*!******************************************!*\
   !*** ./node_modules/classnames/index.js ***!
@@ -809,7 +879,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#main {\n    margin: 0 auto;\n    width: 100%;\n}\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/Main.css"],"names":[],"mappings":";AACA;IACI,cAAc;IACd,WAAW;AACf","sourcesContent":["\n#main {\n    margin: 0 auto;\n    width: 100%;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n#main {\r\n    margin: 0 auto;\r\n    width: 100%;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/Main.css"],"names":[],"mappings":";AACA;IACI,cAAc;IACd,WAAW;AACf","sourcesContent":["\r\n#main {\r\n    margin: 0 auto;\r\n    width: 100%;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
