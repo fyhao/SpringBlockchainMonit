@@ -692,22 +692,50 @@ var TokenGridView = /*#__PURE__*/function (_Component) {
       var listviewdata = me.state.listviewdata;
       var found = false;
 
-      for (var i = 0; i < listviewdata.length; i++) {
-        if (listviewdata[i].name == data.name && listviewdata[i].network == data.network) {
-          listviewdata[i].price = data.price;
-          found = true;
+      if (data.items) {
+        // data items can be 0 or more
+        if (!data.items || !data.items.length) return;
+
+        for (var j = 0; j < data.items.length; j++) {
+          var item = data.items[j];
+
+          for (var i = 0; i < listviewdata.length; i++) {
+            if (listviewdata[i].name == item.name && listviewdata[i].network == item.network) {
+              listviewdata[i].price = item.price;
+              found = true;
+            }
+          }
+
+          if (!found) {
+            item.id = new Date().getTime();
+            listviewdata.push(item);
+          }
         }
-      }
 
-      if (!found) {
-        data.id = new Date().getTime();
-        listviewdata.push(data);
-      }
+        console.log(listviewdata);
+        me.setState({
+          listviewdata: listviewdata
+        });
+        return; // TODO once below block removed, remove return here and do like if(!data.items) return
+      } else {
+        // TODO once data.items ok, remove below block
+        for (var i = 0; i < listviewdata.length; i++) {
+          if (listviewdata[i].name == data.name && listviewdata[i].network == data.network) {
+            listviewdata[i].price = data.price;
+            found = true;
+          }
+        }
 
-      console.log(listviewdata);
-      me.setState({
-        listviewdata: listviewdata
-      });
+        if (!found) {
+          data.id = new Date().getTime();
+          listviewdata.push(data);
+        }
+
+        console.log(listviewdata);
+        me.setState({
+          listviewdata: listviewdata
+        });
+      }
     }
   }, {
     key: "render",

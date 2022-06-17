@@ -1,6 +1,6 @@
 package com.fyhao.blockchainmonit.service;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.fyhao.blockchainmonit.dto.BlockchainToken;
 import com.fyhao.blockchainmonit.dto.PriceChanged;
+import com.fyhao.blockchainmonit.dto.PriceChangedDto;
 import com.fyhao.blockchainmonit.ws.SocketHandler;
 import com.google.gson.Gson;
 
@@ -29,28 +30,37 @@ public class PriceMonitoringService {
 	@Scheduled(fixedRate = 20000)
 	public void scheduleFixedRateTask() throws Exception {
 	    List<BlockchainToken> tokens = tokenService.getTokens();
+	    List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
 	    for(BlockchainToken token : tokens) {
 	    	String price = tokenService.getPrice(token);
 	    	PriceChanged pc = new PriceChanged();
 	    	pc.setName(token.getName());
 	    	pc.setNetwork(tokenService.getNetworkName(token));
 	    	pc.setPrice(price);
-	    	handler.broadcast(pc);
+	    	listOfPC.add(pc);
 	    }
+	    PriceChangedDto dto = new PriceChangedDto();
+	    dto.setItems(listOfPC);
+	    handler.broadcast(dto);
 	}
 	
 	public void clientRequestPriceUpdate(WebSocketSession session) throws Exception {
 		List<BlockchainToken> tokens = tokenService.getTokens();
+		List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
 	    for(BlockchainToken token : tokens) {
 	    	String price = tokenService.getPrice(token);
 	    	PriceChanged pc = new PriceChanged();
 	    	pc.setName(token.getName());
 	    	pc.setNetwork(tokenService.getNetworkName(token));
 	    	pc.setPrice(price);
-	    	Gson gson = new Gson();
-			String jsonstr = gson.toJson(pc);
-			session.sendMessage(new TextMessage(jsonstr));
+	    	listOfPC.add(pc);
 	    }
+	    PriceChangedDto dto = new PriceChangedDto();
+	    dto.setItems(listOfPC);
+	    handler.broadcast(dto);
+	    Gson gson = new Gson();
+		String jsonstr = gson.toJson(dto);
+		session.sendMessage(new TextMessage(jsonstr));
 	}
 	
 }
