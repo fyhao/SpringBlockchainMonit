@@ -475,10 +475,7 @@ var Navigation = /*#__PURE__*/function (_Component) {
 
   _createClass(Navigation, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      // get loaded user roles
-      this.getUserRoles();
-    }
+    value: function componentDidMount() {}
   }, {
     key: "componentWillMount",
     value: function componentWillMount() {
@@ -519,49 +516,6 @@ var Navigation = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "getUserRoles",
-    value: function getUserRoles() {
-      var _this2 = this;
-
-      if (_MyConstants__WEBPACK_IMPORTED_MODULE_3__.DevMode) {
-        this.setState({
-          roles: ['admin'],
-          username: 'superadmin'
-        });
-      } else {
-        var url = "api/getroles";
-        var options = {
-          method: "GET"
-        };
-        fetch(url, options).then(function (results) {
-          return results.json();
-        }).then(function (data) {
-          _this2.setState({
-            roles: data.data.roles,
-            username: data.data.username
-          });
-        }, function (error) {
-          console.log(error);
-        });
-      }
-    }
-  }, {
-    key: "isInRole",
-    value: function isInRole(roles, targetRoles) {
-      for (var i = 0; i < roles.length; i++) {
-        if (targetRoles.indexOf(roles[i]) > -1) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-  }, {
-    key: "handleLogoutClick",
-    value: function handleLogoutClick() {
-      window.location = 'logout';
-    }
-  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -581,7 +535,7 @@ var Navigation = /*#__PURE__*/function (_Component) {
           });
         },
         href: "#"
-      }, "User Role"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, "Home"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
         className: "ml-auto justify-content-end",
         style: {
           width: "50%"
@@ -589,7 +543,7 @@ var Navigation = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_7__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
         variant: "outline-success",
         onClick: this.handleLogoutClick
-      }, "Logout")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Welcome ", this.state.username), this.state.infomsg != '' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }, "Logout")))))), this.state.infomsg != '' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
         color: this.state.infocolor,
         onClick: this.handleDismissInfomsg
       }, this.state.infomsg)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {

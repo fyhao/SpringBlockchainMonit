@@ -18,8 +18,6 @@ class Navigation extends Component {
 	
   }
   componentDidMount() {
-	  // get loaded user roles
-	this.getUserRoles();
   }
   componentWillMount() {
 	ee.on('navigatePage', this.onNavigatePage, this);
@@ -43,44 +41,7 @@ class Navigation extends Component {
 	var me = this;
 	ee.emit('infomsg', {msg:''});
   }
-  getUserRoles() {
-	if(MyConstants.DevMode) {
-		this.setState({
-			roles : ['admin'],
-			username : 'superadmin'
-		});
-	}
-	else {
-		const url = "api/getroles";
-		const options = {
-		  method: "GET"
-		};
-		fetch(url, options)
-		  .then(results => results.json())
-		  .then(
-			data => {
-			  this.setState({roles:data.data.roles,username:data.data.username});
-			},
-			error => {
-			  console.log(error)
-			}
-		  );
-	}
-    
-	  
-  }
   
-  isInRole(roles, targetRoles) {
-	  for(var i = 0; i < roles.length; i++) {
-		  if(targetRoles.indexOf(roles[i]) > -1) {
-			  return true;
-		  }
-	  }
-	  return false;
-  }
-  handleLogoutClick() {
-	  window.location = 'logout';
-  }
   render() {
     return (
       <div>
@@ -91,7 +52,7 @@ class Navigation extends Component {
               <Nav className="mr-auto" style={{ width: "50%" }}>
 			   
 				<NavItem>
-				  <NavLink onClick={() => {ee.emit('navigatePage',{page:<Home />})}} href="#">User Role</NavLink>
+				  <NavLink onClick={() => {ee.emit('navigatePage',{page:<Home />})}} href="#">Home</NavLink>
 				</NavItem>
               </Nav>
 			  <Nav className="ml-auto justify-content-end" style={{ width: "50%" }}>
@@ -102,7 +63,6 @@ class Navigation extends Component {
             </Navbar.Collapse>
           </Navbar>
         </div>
-		<p>Welcome {this.state.username}</p>
 		{this.state.infomsg != '' &&
 			<div>
 				<Alert color={this.state.infocolor} onClick={this.handleDismissInfomsg}>
