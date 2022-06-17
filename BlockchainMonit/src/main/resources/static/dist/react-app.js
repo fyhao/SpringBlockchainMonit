@@ -690,52 +690,30 @@ var TokenGridView = /*#__PURE__*/function (_Component) {
     value: function updateAndBroadcast(data) {
       var me = this;
       var listviewdata = me.state.listviewdata;
-      var found = false;
+      var found = false; // data items can be 0 or more
 
-      if (data.items) {
-        // data items can be 0 or more
-        if (!data.items || !data.items.length) return;
+      if (!data.items || !data.items.length) return;
 
-        for (var j = 0; j < data.items.length; j++) {
-          var item = data.items[j];
+      for (var j = 0; j < data.items.length; j++) {
+        var item = data.items[j];
 
-          for (var i = 0; i < listviewdata.length; i++) {
-            if (listviewdata[i].name == item.name && listviewdata[i].network == item.network) {
-              listviewdata[i].price = item.price;
-              found = true;
-            }
-          }
-
-          if (!found) {
-            item.id = new Date().getTime();
-            listviewdata.push(item);
-          }
-        }
-
-        console.log(listviewdata);
-        me.setState({
-          listviewdata: listviewdata
-        });
-        return; // TODO once below block removed, remove return here and do like if(!data.items) return
-      } else {
-        // TODO once data.items ok, remove below block
         for (var i = 0; i < listviewdata.length; i++) {
-          if (listviewdata[i].name == data.name && listviewdata[i].network == data.network) {
-            listviewdata[i].price = data.price;
+          if (listviewdata[i].name == item.name && listviewdata[i].network == item.network) {
+            listviewdata[i].price = item.price;
             found = true;
           }
         }
 
         if (!found) {
-          data.id = new Date().getTime();
-          listviewdata.push(data);
+          item.id = new Date().getTime();
+          listviewdata.push(item);
         }
-
-        console.log(listviewdata);
-        me.setState({
-          listviewdata: listviewdata
-        });
       }
+
+      console.log(listviewdata);
+      me.setState({
+        listviewdata: listviewdata
+      });
     }
   }, {
     key: "render",
@@ -755,7 +733,7 @@ var TokenGridView = /*#__PURE__*/function (_Component) {
       var listviewcontent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ListView__WEBPACK_IMPORTED_MODULE_1__["default"], {
         options: options
       }));
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, listviewcontent);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, listviewcontent, !this.state.listviewdata.length ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Loading...") : '');
     }
   }]);
 

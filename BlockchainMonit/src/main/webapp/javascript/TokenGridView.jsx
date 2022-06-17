@@ -29,43 +29,24 @@ class TokenGridView extends Component {
 	var me = this;
 	var listviewdata = me.state.listviewdata;
 	var found = false;
-	if(data.items) {
-		// data items can be 0 or more
-		if(!data.items || !data.items.length) return;
-		for(var j = 0; j < data.items.length; j++) {
-			var item = data.items[j];
-			for(var i = 0; i < listviewdata.length; i++) {
-				if(listviewdata[i].name == item.name
-					&& listviewdata[i].network == item.network) {
-					listviewdata[i].price = item.price;
-					found = true;
-				}
-			}
-			if(!found) {
-				item.id = new Date().getTime();
-				listviewdata.push(item);
-			}
-		}
-		console.log(listviewdata);
-		me.setState({listviewdata});
-		return; // TODO once below block removed, remove return here and do like if(!data.items) return
-	}
-	else {
-		// TODO once data.items ok, remove below block
+	// data items can be 0 or more
+	if(!data.items || !data.items.length) return;
+	for(var j = 0; j < data.items.length; j++) {
+		var item = data.items[j];
 		for(var i = 0; i < listviewdata.length; i++) {
-			if(listviewdata[i].name == data.name
-				&& listviewdata[i].network == data.network) {
-				listviewdata[i].price = data.price;
+			if(listviewdata[i].name == item.name
+				&& listviewdata[i].network == item.network) {
+				listviewdata[i].price = item.price;
 				found = true;
 			}
 		}
 		if(!found) {
-			data.id = new Date().getTime();
-			listviewdata.push(data);
+			item.id = new Date().getTime();
+			listviewdata.push(item);
 		}
-		console.log(listviewdata);
-		me.setState({listviewdata});
 	}
+	console.log(listviewdata);
+	me.setState({listviewdata});
 	
   }
   
@@ -87,6 +68,7 @@ class TokenGridView extends Component {
     return (
       <div>
         {listviewcontent}
+        {!this.state.listviewdata.length ? <p>Loading...</p> : ''}
       </div>
     );
   }
