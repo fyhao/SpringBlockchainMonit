@@ -26,7 +26,7 @@ public class PriceMonitoringService {
 	@Autowired
 	TokenService tokenService;
 	
-	@Scheduled(fixedRate = 10000)
+	@Scheduled(fixedRate = 20000)
 	public void scheduleFixedRateTask() throws Exception {
 	    List<BlockchainToken> tokens = tokenService.getTokens();
 	    for(BlockchainToken token : tokens) {
