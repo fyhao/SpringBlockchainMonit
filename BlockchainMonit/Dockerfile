@@ -1,5 +1,5 @@
 FROM openjdk:11-jdk
 VOLUME /tmp
 ARG JAR_FILE
-COPY ${JAR_FILE} app.jar
+COPY build/libs/BlockchainMonit-0.1.0.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
