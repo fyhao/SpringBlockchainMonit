@@ -34,7 +34,7 @@ const HomeMain = (props) => {
           </div>
         </div>
       </div>
-      <style jsx>
+      <style jsx="true">
       
         {`
         :root {
