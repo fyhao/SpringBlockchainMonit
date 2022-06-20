@@ -43,7 +43,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle --no-daemon --stacktrace clean build
+RUN gradle --no-daemon --stacktrace clean build -x test
 FROM openjdk:11-jdk
 EXPOSE 8080
 RUN mkdir /app
