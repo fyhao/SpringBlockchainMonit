@@ -27,6 +27,8 @@ public class PriceMonitoringService {
 	@Autowired
 	TokenService tokenService;
 	
+	static List<PriceChanged> cached = new ArrayList<PriceChanged>();
+	
 	@Scheduled(fixedDelay = 20000)
 	public void scheduleFixedRateTask() throws Exception {
 	    List<BlockchainToken> tokens = tokenService.getTokens();
@@ -42,9 +44,19 @@ public class PriceMonitoringService {
 	    PriceChangedDto dto = new PriceChangedDto();
 	    dto.setItems(listOfPC);
 	    handler.broadcast(dto);
+	    cached = listOfPC;
 	}
 	
 	public void clientRequestPriceUpdate(WebSocketSession session) throws Exception {
+		if(cached != null) {
+			PriceChangedDto dto = new PriceChangedDto();
+		    dto.setItems(cached);
+		    handler.broadcast(dto);
+		    Gson gson = new Gson();
+			String jsonstr = gson.toJson(dto);
+			session.sendMessage(new TextMessage(jsonstr));
+			return;
+		};
 		List<BlockchainToken> tokens = tokenService.getTokens();
 		List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
 	    for(BlockchainToken token : tokens) {
