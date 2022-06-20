@@ -210,6 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _ListView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListView */ "./src/main/webapp/javascript/ListView.jsx");
 /* harmony import */ var _TokenGridView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TokenGridView */ "./src/main/webapp/javascript/TokenGridView.jsx");
+/* harmony import */ var _HomeMain__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HomeMain */ "./src/main/webapp/javascript/HomeMain.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -237,6 +238,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Home = /*#__PURE__*/function (_Component) {
   _inherits(Home, _Component);
 
@@ -255,7 +257,9 @@ var Home = /*#__PURE__*/function (_Component) {
   _createClass(Home, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TokenGridView__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        role: "home"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HomeMain__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
 
@@ -263,6 +267,60 @@ var Home = /*#__PURE__*/function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Home);
+
+/***/ }),
+
+/***/ "./src/main/webapp/javascript/HomeMain.jsx":
+/*!*************************************************!*\
+  !*** ./src/main/webapp/javascript/HomeMain.jsx ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _TokenGridView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TokenGridView */ "./src/main/webapp/javascript/TokenGridView.jsx");
+
+
+
+var HomeMain = function HomeMain(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "home-main-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "hero-container section-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "home-main-max-width max-width"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "home-main-content"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "home-main-subtitle before-Heading"
+  }, "Blockchain Monit system"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
+    className: "home-main-title"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "home-main-text"
+  }, "Unlock the next generation blockchain", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    dangerouslySetInnerHTML: {
+      __html: ' '
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "home-main-text1"
+  }, "experience")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "home-main-description"
+  }, "Best DEFI in the world"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "home-main-container1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: "button button-gradient"
+  }, "Get started"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "home-main-feature-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_TokenGridView__WEBPACK_IMPORTED_MODULE_1__["default"], null))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("style", {
+    jsx: true
+  }, "\n        :root {\n  --dl-size-size-large: 144px;\n  --dl-size-size-small: 48px;\n  --dl-size-size-medium: 96px;\n  --dl-size-size-xlarge: 192px;\n  --dl-size-size-xsmall: 16px;\n  --dl-space-space-unit: 16px;\n  --dl-size-size-xxlarge: 288px;\n  --dl-color-scheme-white: #FFFFFF;\n  --dl-size-size-maxwidth: 1144px;\n  --dl-radius-radius-round: 50%;\n  --dl-color-scheme-green80: #105749ff;\n  --dl-space-space-halfunit: 8px;\n  --dl-space-space-sixunits: 96px;\n  --dl-space-space-twounits: 32px;\n  --dl-color-scheme-green100: #0c4237ff;\n  --dl-color-scheme-orange80: #ffc78bff;\n  --dl-color-scheme-yellow20: #fffef3ff;\n  --dl-color-scheme-yellow80: #fff6a7ff;\n  --dl-radius-radius-radius2: 2px;\n  --dl-radius-radius-radius4: 4px;\n  --dl-radius-radius-radius8: 8px;\n  --dl-space-space-fiveunits: 80px;\n  --dl-space-space-fourunits: 64px;\n  --dl-color-scheme-orange100: #ffad61ff;\n  --dl-radius-radius-radius16: 16px;\n  --dl-space-space-eightunits: 128px;\n  --dl-space-space-threeunits: 48px;\n  --dl-color-scheme-lightgreen: #c7ff9bff;\n  --dl-space-space-oneandhalfunits: 24px;\n}\n.button {\n  color: var(--dl-color-scheme-green100);\n  cursor: pointer;\n  display: inline-block;\n  padding: 12px 24px;\n  border-color: var(--dl-color-scheme-green100);\n  border-width: 2px;\n  border-radius: 32px;\n  background-color: var(--dl-color-scheme-white);\n}\n.input {\n  color: var(--dl-color-scheme-green100);\n  cursor: auto;\n  padding: 0.5rem 1rem;\n  border-color: var(--dl-color-scheme-green100);\n  border-width: 1px;\n  border-radius: 4px;\n  background-color: var(--dl-color-scheme-white);\n}\n.textarea {\n  color: var(--dl-color-scheme-green100);\n  cursor: auto;\n  padding: 0.5rem;\n  border-color: var(--dl-color-scheme-green100);\n  border-width: 1px;\n  border-radius: 4px;\n  background-color: var(--dl-color-scheme-white);\n}\n.list {\n  width: 100%;\n  margin: 1em 0px 1em 0px;\n  display: block;\n  padding: 0px 0px 0px 1.5rem;\n  list-style-type: none;\n  list-style-position: outside;\n}\n.list-item {\n  display: list-item;\n}\n.teleport-show {\n  display: flex !important;\n}\n.button-secondary {\n  font-style: normal;\n  transition: 0.3s;\n  font-family: Lexend;\n  font-weight: 500;\n  line-height: 1;\n  border-color: var(--dl-color-scheme-green80);\n  margin-right: var(--dl-space-space-unit);\n}\n.button-secondary:hover {\n  color: var(--dl-color-scheme-white);\n  background-color: var(--dl-color-scheme-orange100);\n}\n.button-primary {\n  color: var(--dl-color-scheme-white);\n  font-style: normal;\n  transition: 0.3s;\n  font-family: Lexend;\n  font-weight: 500;\n  line-height: 1;\n  border-color: var(--dl-color-scheme-green80);\n  background-color: var(--dl-color-scheme-green80);\n}\n.button-primary:hover {\n  color: var(--dl-color-scheme-green80);\n  background-color: var(--dl-color-scheme-lightgreen);\n}\n.navbar-container {\n  top: 0;\n  width: 100%;\n  display: flex;\n  z-index: 1000;\n  position: sticky;\n  padding-top: var(--dl-space-space-oneandhalfunits);\n  padding-bottom: var(--dl-space-space-oneandhalfunits);\n  justify-content: center;\n  background-color: var(--dl-color-scheme-white);\n}\n.navbar-burger-menu {\n  display: none;\n}\n.max-width {\n  width: 100%;\n  display: flex;\n  max-width: var(--dl-size-size-maxwidth);\n  align-items: center;\n  padding-left: var(--dl-space-space-oneandhalfunits);\n  padding-right: var(--dl-space-space-oneandhalfunits);\n  justify-content: space-between;\n}\n.button-gradient {\n  display: flex;\n  font-size: 18px;\n  background: linear-gradient(90deg, #C7FF9B 0%, #FFF6A7 100%);\n  font-style: normal;\n  transition: 0.3s;\n  align-items: center;\n  font-weight: 700;\n  line-height: 0.9;\n  padding-top: 20px;\n  border-color: transparent;\n  margin-right: var(--dl-space-space-unit);\n  padding-left: 32px;\n  padding-right: 32px;\n  padding-bottom: 20px;\n}\n.button-gradient:hover {\n  color: var(--dl-color-scheme-white);\n  background: unset;\n  border-color: var(--dl-color-scheme-white);\n}\n.button-transparent {\n  color: var(--dl-color-scheme-white);\n  font-size: 18px;\n  font-style: normal;\n  transition: 0.3s;\n  font-weight: 700;\n  line-height: 0.9;\n  padding-top: 20px;\n  border-color: var(--dl-color-scheme-white);\n  padding-left: 32px;\n  padding-right: 32px;\n  padding-bottom: 20px;\n  background-color: transparent;\n}\n.button-transparent:hover {\n  color: var(--dl-color-scheme-green80);\n  background-color: var(--dl-color-scheme-lightgreen);\n}\n.section-container {\n  width: 100%;\n  display: flex;\n  overflow: hidden;\n  align-items: center;\n  padding-top: var(--dl-space-space-eightunits);\n  flex-direction: column;\n  padding-bottom: var(--dl-space-space-eightunits);\n}\n.hero-container {\n  padding-top: 0 !important;\n  background-color: var(--dl-color-scheme-green80);\n}\n.bg-transparent {\n  background-color: transparent;\n}\n.question-content {\n  display: flex;\n  overflow: hidden;\n  max-height: 0;\n  transition: 0.3s;\n  align-items: flex-start;\n  flex-direction: column;\n}\n.question {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  padding-top: 20px;\n  border-color: rgba(44, 39, 33, 0.08);\n  border-width: 1px;\n  padding-left: var(--dl-space-space-twounits);\n  border-radius: 12px;\n  margin-bottom: var(--dl-space-space-unit);\n  padding-right: var(--dl-space-space-twounits);\n  flex-direction: column;\n  padding-bottom: 20px;\n  justify-content: space-between;\n  background-color: var(--dl-color-scheme-white);\n}\n.footer-column {\n  width: 15%;\n  display: flex;\n  align-items: flex-start;\n  margin-bottom: var(--dl-space-space-oneandhalfunits);\n  flex-direction: column;\n  justify-content: flex-start;\n}\n.before-heading {\n  font-size: 14px;\n  font-style: normal;\n  font-family: Urbanist;\n  font-weight: 800;\n  line-height: 1.15;\n  letter-spacing: 0.12em;\n  text-transform: uppercase;\n  text-decoration: none;\n}\n.brand-name {\n  font-size: 20px;\n  font-style: normal;\n  font-family: Urbanist;\n  font-weight: 800;\n  line-height: 1.2;\n  letter-spacing: 0.25em;\n  text-transform: uppercase;\n  text-decoration: none;\n}\n.navbar-link {\n  font-size: 16px;\n  font-style: normal;\n  font-family: Titillium Web;\n  font-weight: 600;\n  line-height: 1.5;\n  text-transform: none;\n  text-decoration: none;\n}\n.content {\n  font-size: 16px;\n  font-family: Titillium Web;\n  font-weight: 400;\n  line-height: 1.15;\n  text-transform: none;\n  text-decoration: none;\n}\n\n@media(max-width: 767px) {\n  .navbar-burger-menu {\n    display: flex;\n  }\n  .section-container {\n    padding-top: var(--dl-space-space-fourunits);\n    padding-bottom: var(--dl-space-space-fourunits);\n  }\n  .footer-column {\n    width: 30%;\n  }\n}\n@media(max-width: 479px) {\n  .footer-column {\n    width: 50%;\n  }\n}\n\n\n          .home-main-container {\n            width: 100%;\n            display: flex;\n            min-height: 100vh;\n            align-items: center;\n            flex-direction: column;\n          }\n          .home-main-max-width {\n            align-items: center;\n          }\n          .home-main-content {\n            flex: 0 0 auto;\n            width: 45%;\n            display: flex;\n            align-items: flex-start;\n            margin-right: var(--dl-space-space-twounits);\n            margin-bottom: var(--dl-space-space-threeunits);\n            flex-direction: column;\n          }\n          .home-main-subtitle {\n            color: var(--dl-color-scheme-orange100);\n            margin-bottom: var(--dl-space-space-unit);\n          }\n          .home-main-title {\n            color: #e8c7c7;\n            font-size: 52px;\n            font-style: normal;\n            font-family: Urbanist;\n            font-weight: 600;\n            line-height: 1.2;\n            margin-bottom: var(--dl-space-space-twounits);\n          }\n          .home-main-text {\n            font-style: normal;\n            font-family: Urbanist;\n            font-weight: 600;\n          }\n          .home-main-text1 {\n            font-style: normal;\n            font-family: Urbanist;\n            font-weight: 600;\n          }\n          .home-main-description {\n            color: var(--dl-color-scheme-white);\n            font-size: 18px;\n            line-height: 1.5;\n            margin-bottom: var(--dl-space-space-threeunits);\n          }\n          .home-main-container1 {\n            flex: 0 0 auto;\n            width: 100%;\n            display: flex;\n            align-items: stretch;\n            flex-direction: row;\n          }\n          .home-main-feature-card {\n            width: 100%;\n            display: flex;\n            padding: var(--dl-space-space-twounits);\n            align-items: center;\n            padding-left: 4px;\n            flex-direction: column;\n            background-color: #f7eded;\n          }\n          .home-main-icon {\n            fill: #595959;\n            width: var(--dl-size-size-small);\n            height: var(--dl-size-size-small);\n          }\n          .home-main-text2 {\n            font-style: normal;\n            margin-top: var(--dl-space-space-unit);\n            text-align: center;\n            font-weight: 500;\n            margin-bottom: var(--dl-space-space-unit);\n          }\n          .home-main-text3 {\n            color: #999999;\n            text-align: center;\n          }\n          .home-main-text4 {\n            font-size: 0.75rem;\n            margin-top: var(--dl-space-space-unit);\n            font-weight: 500;\n          }\n          @media (max-width: 991px) {\n            .home-main-content {\n              width: 50%;\n              margin-right: var(--dl-space-space-unit);\n            }\n          }\n          @media (max-width: 767px) {\n            .home-main-max-width {\n              flex-direction: column-reverse;\n            }\n            .home-main-content {\n              width: 100%;\n              margin-right: 0px;\n            }\n          }\n        "));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HomeMain);
 
 /***/ }),
 
@@ -902,7 +960,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#main {\n    margin: 0 auto;\n    width: 100%;\n}\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/Main.css"],"names":[],"mappings":";AACA;IACI,cAAc;IACd,WAAW;AACf","sourcesContent":["\n#main {\n    margin: 0 auto;\n    width: 100%;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n#main {\r\n    margin: 0 auto;\r\n    width: 100%;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/main/webapp/css/Main.css"],"names":[],"mappings":";AACA;IACI,cAAc;IACd,WAAW;AACf","sourcesContent":["\r\n#main {\r\n    margin: 0 auto;\r\n    width: 100%;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
