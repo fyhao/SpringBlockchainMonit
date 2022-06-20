@@ -27,9 +27,13 @@ public class PriceMonitoringService {
 	@Autowired
 	TokenService tokenService;
 	
+<<<<<<< HEAD
 	static List<PriceChanged> cached = new ArrayList<PriceChanged>();
 	
 	@Scheduled(fixedDelay = 20000)
+=======
+	@Scheduled(fixedDelay = 60000)
+>>>>>>> 478c18adae26e9d34a6369cedb9f81d3e1b50d91
 	public void scheduleFixedRateTask() throws Exception {
 	    List<BlockchainToken> tokens = tokenService.getTokens();
 	    List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
