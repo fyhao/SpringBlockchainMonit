@@ -13,6 +13,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+       run:
+         working-directory: ./BlockchainMonit/
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
@@ -25,5 +28,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: './BlockchainMonit/package-lock.json'
     - run: npm test
-      working-directory: BlockchainMonit
