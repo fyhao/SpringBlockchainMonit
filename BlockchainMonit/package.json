@@ -2,7 +2,8 @@
   "name": "spring-react-app",
   "description": "Sample application using React with Spring Boot",
   "scripts": {
-    "test": "node node_modules/react-scripts/bin/react-scripts.js test --watchAll=false"
+    "test": "node node_modules/react-scripts/bin/react-scripts.js test --watchAll=false",
+    "test2": "node node_modules/react-scripts/bin/react-scripts.js test"
   },
   "dependencies": {
     "@babel/core": "^7.12.13",

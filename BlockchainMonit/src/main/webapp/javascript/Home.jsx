@@ -16,7 +16,7 @@ class Home extends Component {
   render() {
 	
     return (
-      <div>
+      <div role="home">
         <span>Home</span>
         <TokenGridView />
       </div>
