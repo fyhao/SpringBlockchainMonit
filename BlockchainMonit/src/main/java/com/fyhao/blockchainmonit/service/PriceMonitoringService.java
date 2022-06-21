@@ -14,6 +14,7 @@ import com.fyhao.blockchainmonit.dto.BlockchainToken;
 import com.fyhao.blockchainmonit.dto.EtherscanTokenItem;
 import com.fyhao.blockchainmonit.dto.PriceChanged;
 import com.fyhao.blockchainmonit.dto.PriceChangedDto;
+import com.fyhao.blockchainmonit.util.MyConstants;
 import com.fyhao.blockchainmonit.util.Util;
 import com.fyhao.blockchainmonit.ws.SocketHandler;
 import com.google.gson.Gson;
@@ -39,13 +40,25 @@ public class PriceMonitoringService {
 	    for(BlockchainToken token : tokens) {
 	    	EtherscanTokenItem eti = tokenService.getEtherscanTokenItem(token);
 			String price = eti.getPriceString();
-	    	PriceChanged pc = new PriceChanged();
-	    	pc.setName(token.getName());
-	    	pc.setNetwork(tokenService.getNetworkName(token));
-	    	pc.setPrice(price);
-	    	pc.setImage(eti.getImage());
-	    	pc.setLastUpdatedTime(Util.formatTime("yyyy-MM-dd hh:mm", new Date()));
-	    	listOfPC.add(pc);
+			boolean toAdd = true;
+			for(PriceChanged pc2 : cached) {
+				if(pc2.getName().equals(token.getName())
+						&& pc2.getNetwork().equals(tokenService.getNetworkName(token))
+						) {
+					if(price.equals(pc2.getName())) {
+						toAdd = false;
+					}
+				}
+			}
+			if(toAdd) {
+				PriceChanged pc = new PriceChanged();
+		    	pc.setName(token.getName());
+		    	pc.setNetwork(tokenService.getNetworkName(token));
+		    	pc.setPrice(price);
+		    	pc.setImage(eti.getImage());
+		    	pc.setLastUpdatedTime(Util.formatTime(MyConstants.yyyyMMddhhmm, new Date()));
+		    	listOfPC.add(pc);
+			}
 	    }
 	    PriceChangedDto dto = new PriceChangedDto();
 	    dto.setItems(listOfPC);
@@ -73,7 +86,7 @@ public class PriceMonitoringService {
 	    	pc.setNetwork(tokenService.getNetworkName(token));
 	    	pc.setPrice(price);
 	    	pc.setImage(eti.getImage());
-	    	pc.setLastUpdatedTime(Util.formatTime("yyyy-MM-dd hh:mm", new Date()));
+	    	pc.setLastUpdatedTime(Util.formatTime(MyConstants.yyyyMMddhhmm, new Date()));
 	    	listOfPC.add(pc);
 	    }
 	    PriceChangedDto dto = new PriceChangedDto();
