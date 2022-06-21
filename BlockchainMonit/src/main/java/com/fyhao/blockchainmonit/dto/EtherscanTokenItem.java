@@ -17,4 +17,8 @@ public class EtherscanTokenItem {
 		String price;
 		String priceCurrency;
 	}
+	
+	public String getPriceString() {
+		return this.offers.getPriceCurrency() + " " + this.offers.getPrice();
+	}
 }

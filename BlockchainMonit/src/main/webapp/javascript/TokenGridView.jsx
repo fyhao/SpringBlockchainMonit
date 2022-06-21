@@ -65,10 +65,16 @@ class TokenGridView extends Component {
 		}
 		options.data = d;
 	}
+	var renderName = (v, row) => {
+		return <span><img src={row['image']} />{' '}{v}</span>;
+	};
+	var renderPrice = (v, row) => {
+		return <span>{v} <br />({row['lastUpdatedTime']})</span>;
+	};
 	options.fields = [
-		{heading:'Name',key:'name',clickable:true,clickablestyle:{'fontWeight':'bold'}},
+		{heading:'Name',key:'name',clickable:true,clickablestyle:{'fontWeight':'bold'},render:renderName},
 		{heading:'Network',key:'network'},
-		{heading:'Price',key:'price'}
+		{heading:'Price',key:'price',render:renderPrice}
 	];
 	
 	options.handleGridCellClick = (row, fieldkey, fieldvalue) => {

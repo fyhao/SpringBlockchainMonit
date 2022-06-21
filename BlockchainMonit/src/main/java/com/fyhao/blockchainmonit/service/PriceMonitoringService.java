@@ -1,6 +1,7 @@
 package com.fyhao.blockchainmonit.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,10 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import com.fyhao.blockchainmonit.dto.BlockchainToken;
+import com.fyhao.blockchainmonit.dto.EtherscanTokenItem;
 import com.fyhao.blockchainmonit.dto.PriceChanged;
 import com.fyhao.blockchainmonit.dto.PriceChangedDto;
+import com.fyhao.blockchainmonit.util.Util;
 import com.fyhao.blockchainmonit.ws.SocketHandler;
 import com.google.gson.Gson;
 
@@ -34,11 +37,14 @@ public class PriceMonitoringService {
 	    List<BlockchainToken> tokens = tokenService.getTokens();
 	    List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
 	    for(BlockchainToken token : tokens) {
-	    	String price = tokenService.getPrice(token);
+	    	EtherscanTokenItem eti = tokenService.getEtherscanTokenItem(token);
+			String price = eti.getPriceString();
 	    	PriceChanged pc = new PriceChanged();
 	    	pc.setName(token.getName());
 	    	pc.setNetwork(tokenService.getNetworkName(token));
 	    	pc.setPrice(price);
+	    	pc.setImage(eti.getImage());
+	    	pc.setLastUpdatedTime(Util.formatTime("yyyy-MM-dd hh:mm", new Date()));
 	    	listOfPC.add(pc);
 	    }
 	    PriceChangedDto dto = new PriceChangedDto();
@@ -60,11 +66,14 @@ public class PriceMonitoringService {
 		List<BlockchainToken> tokens = tokenService.getTokens();
 		List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
 	    for(BlockchainToken token : tokens) {
-	    	String price = tokenService.getPrice(token);
+	    	EtherscanTokenItem eti = tokenService.getEtherscanTokenItem(token);
+			String price = eti.getPriceString();
 	    	PriceChanged pc = new PriceChanged();
 	    	pc.setName(token.getName());
 	    	pc.setNetwork(tokenService.getNetworkName(token));
 	    	pc.setPrice(price);
+	    	pc.setImage(eti.getImage());
+	    	pc.setLastUpdatedTime(Util.formatTime("yyyy-MM-dd hh:mm", new Date()));
 	    	listOfPC.add(pc);
 	    }
 	    PriceChangedDto dto = new PriceChangedDto();

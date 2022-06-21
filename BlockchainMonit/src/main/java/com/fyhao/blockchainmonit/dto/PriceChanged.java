@@ -8,4 +8,6 @@ public class PriceChanged {
 	String name;
 	String price;
 	String network;
+	String image;
+	String lastUpdatedTime;
 }

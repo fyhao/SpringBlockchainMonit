@@ -52,6 +52,17 @@ public class TokenService {
 		EtherscanTokenItem item = gson.fromJson(jsonstr, EtherscanTokenItem.class);
 		return item.getOffers().getPriceCurrency() + " " + item.getOffers().getPrice();	
 	}
+	@SneakyThrows(Exception.class)
+	public EtherscanTokenItem getEtherscanTokenItem(BlockchainToken token) {
+		RestTemplate restTemplate = new RestTemplate();
+	    final String baseUrl = String.format(getTokenURL(token), token.getAddress());
+		URI uri = new URI(baseUrl);
+		ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
+		String jsonstr = StringUtils.substringBetween(result.toString(), "<script type=\"application/ld+json\">", "</script>");
+		Gson gson = new Gson();
+		EtherscanTokenItem item = gson.fromJson(jsonstr, EtherscanTokenItem.class);
+		return item;
+	}
 	
 	public List<BlockchainNetwork> getNetworks() throws IOException {
 		String data = IOUtils.toString(networksFile.getInputStream(), StandardCharsets.UTF_8);

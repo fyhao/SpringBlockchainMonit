@@ -14,6 +14,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import com.fyhao.blockchainmonit.BlockchainMonitApp;
 import com.fyhao.blockchainmonit.dto.BlockchainToken;
+import com.fyhao.blockchainmonit.dto.EtherscanTokenItem;
 import com.fyhao.blockchainmonit.service.TokenService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,8 @@ public class TestBlockchainMonit {
 		List<BlockchainToken> list = tokenService.getTokens();
 		assertThat(list).isNotEmpty();
 		for(BlockchainToken token : list) {
-			String price = tokenService.getPrice(token);
+			EtherscanTokenItem eti = tokenService.getEtherscanTokenItem(token);
+			String price = eti.getPriceString();
 			assertThat(price).isNotNull();
 			log.info("getprice token {} price {}", token.getName(), price);
 		}
