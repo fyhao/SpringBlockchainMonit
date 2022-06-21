@@ -57,6 +57,8 @@ public class PriceMonitoringService {
 		    	pc.setPrice(price);
 		    	pc.setImage(eti.getImage());
 		    	pc.setLastUpdatedTime(Util.formatTime(MyConstants.yyyyMMddhhmm, new Date()));
+		    	pc.setUrl(eti.getUrl());
+		    	pc.setDescription(eti.getDescription());
 		    	listOfPC.add(pc);
 			}
 	    }
@@ -87,6 +89,8 @@ public class PriceMonitoringService {
 	    	pc.setPrice(price);
 	    	pc.setImage(eti.getImage());
 	    	pc.setLastUpdatedTime(Util.formatTime(MyConstants.yyyyMMddhhmm, new Date()));
+	    	pc.setUrl(eti.getUrl());
+	    	pc.setDescription(eti.getDescription());
 	    	listOfPC.add(pc);
 	    }
 	    PriceChangedDto dto = new PriceChangedDto();

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Navbar, Nav, Form, FormControl, Button, NavItem } from 'react-bootstrap';
 import ListView from './ListView';
+import TokenInfoView from './TokenInfoView';
 class TokenGridView extends Component {
   constructor(props) {
     super(props);
     this.state = {
 	  listviewdata : [],
-	  filtered : ''
+	  filtered : '',
+	  viewitem : null
     };
 	
   }	
@@ -73,25 +75,43 @@ class TokenGridView extends Component {
 	};
 	options.fields = [
 		{heading:'Name',key:'name',clickable:true,clickablestyle:{'fontWeight':'bold'},render:renderName},
-		{heading:'Network',key:'network'},
-		{heading:'Price',key:'price',render:renderPrice}
+		{heading:'Network',key:'network',clickable:true},
+		{heading:'Price',key:'price',render:renderPrice,clickable:true}
 	];
 	
 	options.handleGridCellClick = (row, fieldkey, fieldvalue) => {
-		if(this.state.filtered.length) {
-			me.setState({filtered:''});
+		if(fieldkey == 'name') {
+			if(this.state.filtered.length) {
+				me.setState({filtered : ''});
+			}
+			else {
+				me.setState({filtered : row['name']});
+			}
 		}
-		else {
-			me.setState({filtered:fieldvalue});
+		else if(fieldkey == 'network' || fieldkey == 'price') {
+			if(this.state.viewitem != null) {
+				me.setState({viewitem : null});
+			}
+			else {
+				me.setState({viewitem : row});
+			}
 		}
 	};
-	var listviewcontent = <div>
+	var handleBack = () => {
+		me.setState({viewitem : null});
+	};
+	var listviewcontent = me.state.viewitem == null ? <div>
 			<ListView options={options}/>
-			</div>;
+			</div> : '';
+	var tokeninfocontent = me.state.viewitem != null ? 
+			<TokenInfoView token={me.state.viewitem} handleBack={handleBack} />
+			 : 
+			'';
 			
     return (
       <div>
         {listviewcontent}
+        {tokeninfocontent}
         {!this.state.listviewdata.length ? <p>Loading...</p> : ''}
       </div>
     );

@@ -9,5 +9,7 @@ public class PriceChanged {
 	String price;
 	String network;
 	String image;
+	String url;
+	String description;
 	String lastUpdatedTime;
 }

@@ -9,6 +9,7 @@ public class EtherscanTokenItem {
 
 	String description;
 	String image;
+	String url;
 	EtherscanTokenOffer offers;
 	
 	@ToString
