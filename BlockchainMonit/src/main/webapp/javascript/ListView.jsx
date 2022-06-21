@@ -8,7 +8,7 @@ class ListView extends Component {
 	 const data = options.data;
     return (
       <div>
-		<Table>
+		<Table hover responsive>
 			<thead><tr>
 		{fields.map((field,i) => {
 			return (<th key={i}>{field.heading}</th>)
