@@ -25,8 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class PriceMonitoringService {
 
-	@Autowired
-	SocketHandler handler;
 	
 	@Autowired
 	TokenService tokenService;
@@ -64,7 +62,7 @@ public class PriceMonitoringService {
 	    }
 	    PriceChangedDto dto = new PriceChangedDto();
 	    dto.setItems(listOfPC);
-	    handler.broadcast(dto);
+	    SocketHandler.broadcast(dto);
 	    cached = listOfPC;
 	}
 	
@@ -72,7 +70,7 @@ public class PriceMonitoringService {
 		if(cached != null) {
 			PriceChangedDto dto = new PriceChangedDto();
 		    dto.setItems(cached);
-		    handler.broadcast(dto);
+		    SocketHandler.broadcast(dto);
 		    Gson gson = new Gson();
 			String jsonstr = gson.toJson(dto);
 			session.sendMessage(new TextMessage(jsonstr));
@@ -95,7 +93,7 @@ public class PriceMonitoringService {
 	    }
 	    PriceChangedDto dto = new PriceChangedDto();
 	    dto.setItems(listOfPC);
-	    handler.broadcast(dto);
+	    SocketHandler.broadcast(dto);
 	    Gson gson = new Gson();
 		String jsonstr = gson.toJson(dto);
 		session.sendMessage(new TextMessage(jsonstr));

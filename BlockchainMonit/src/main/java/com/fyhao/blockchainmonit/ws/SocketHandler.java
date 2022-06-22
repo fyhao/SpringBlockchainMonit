@@ -50,7 +50,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		log.info("websocket is closed: {}", session.getId());
 	}
 	
-	public void broadcast(String s) throws Exception {
+	public static void broadcast(String s) throws Exception {
 		log.info("SocketHandler broadcast {} / {}", s, sessions.size());
 		for(WebSocketSession webSocketSession : sessions) {
 			log.info("Sending {} to {}", s, webSocketSession.getId());
@@ -58,7 +58,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		}
 	}
 	
-	public void broadcast(Object obj) throws Exception {
+	public static void broadcast(Object obj) throws Exception {
 		for(WebSocketSession webSocketSession : sessions) {
 			Gson gson = new Gson();
 			String jsonstr = gson.toJson(obj);
