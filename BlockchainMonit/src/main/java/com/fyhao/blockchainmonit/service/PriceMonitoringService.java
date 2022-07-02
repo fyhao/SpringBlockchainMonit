@@ -1,5 +1,6 @@
 package com.fyhao.blockchainmonit.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,11 @@ public class PriceMonitoringService {
 	@Autowired
 	TokenService tokenService;
 	
-	static List<PriceChanged> cached = new ArrayList<PriceChanged>();
+	public static List<PriceChanged> cached = new ArrayList<PriceChanged>();
+	
+	public void setTokenService(TokenService svc) { // for unit test
+		tokenService = svc;
+	}
 	
 	@Scheduled(fixedDelay = 60000)
 	public void scheduleFixedRateTask() throws Exception {
@@ -43,60 +48,76 @@ public class PriceMonitoringService {
 				if(pc2.getName().equals(token.getName())
 						&& pc2.getNetwork().equals(tokenService.getNetworkName(token))
 						) {
-					if(price.equals(pc2.getName())) {
+					if(price.equals(pc2.getPrice())) {
 						toAdd = false;
 					}
+					
 				}
 			}
 			if(toAdd) {
-				PriceChanged pc = new PriceChanged();
-		    	pc.setName(token.getName());
-		    	pc.setNetwork(tokenService.getNetworkName(token));
-		    	pc.setPrice(price);
-		    	pc.setImage(eti.getImage());
-		    	pc.setLastUpdatedTime(Util.formatTime(MyConstants.yyyyMMddhhmm, new Date()));
-		    	pc.setUrl(eti.getUrl());
-		    	pc.setDescription(eti.getDescription());
+				PriceChanged pc = buildPriceChanged(token, eti);
 		    	listOfPC.add(pc);
 			}
 	    }
-	    PriceChangedDto dto = new PriceChangedDto();
-	    dto.setItems(listOfPC);
-	    SocketHandler.broadcast(dto);
-	    cached = listOfPC;
+	    if(listOfPC.size() > 0) {
+	    	PriceChangedDto dto = new PriceChangedDto();
+		    dto.setItems(listOfPC);
+		    SocketHandler.broadcast(dto);
+	    }
+	    replacePcInCache(cached, listOfPC);
+	}
+	public PriceChanged buildPriceChanged(BlockchainToken token, EtherscanTokenItem eti) throws IOException {
+		PriceChanged pc = new PriceChanged();
+    	pc.setName(token.getName());
+    	pc.setNetwork(tokenService.getNetworkName(token));
+    	String price = eti.getPriceString();
+    	pc.setPrice(price);
+    	pc.setImage(eti.getImage());
+    	pc.setLastUpdatedTime(Util.formatTime(MyConstants.yyyyMMddhhmm, new Date()));
+    	pc.setUrl(eti.getUrl());
+    	pc.setDescription(eti.getDescription());
+    	return pc;
+	}
+	public void replacePcInCache(List<PriceChanged> cached, List<PriceChanged> listOfPC) {
+		// listOfPC can be blank b
+		for(PriceChanged c : listOfPC) {
+			boolean foundCache = false;
+			for(PriceChanged c1 : cached) {
+				if(c.getNetwork().equals(c1.getNetwork()) && c.getName().equals(c1.getName())) {
+					c1.setPrice(c.getPrice());
+					foundCache = true;
+					break;
+				}
+			}
+			if(!foundCache) {
+				cached.add(c);
+			}
+		}
 	}
 	
 	public void clientRequestPriceUpdate(WebSocketSession session) throws Exception {
-		if(cached != null) {
-			PriceChangedDto dto = new PriceChangedDto();
-		    dto.setItems(cached);
-		    SocketHandler.broadcast(dto);
-		    Gson gson = new Gson();
-			String jsonstr = gson.toJson(dto);
-			session.sendMessage(new TextMessage(jsonstr));
-			return;
-		};
-		List<BlockchainToken> tokens = tokenService.getTokens();
-		List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
-	    for(BlockchainToken token : tokens) {
-	    	EtherscanTokenItem eti = tokenService.getEtherscanTokenItem(token);
-			String price = eti.getPriceString();
-	    	PriceChanged pc = new PriceChanged();
-	    	pc.setName(token.getName());
-	    	pc.setNetwork(tokenService.getNetworkName(token));
-	    	pc.setPrice(price);
-	    	pc.setImage(eti.getImage());
-	    	pc.setLastUpdatedTime(Util.formatTime(MyConstants.yyyyMMddhhmm, new Date()));
-	    	pc.setUrl(eti.getUrl());
-	    	pc.setDescription(eti.getDescription());
-	    	listOfPC.add(pc);
-	    }
-	    PriceChangedDto dto = new PriceChangedDto();
-	    dto.setItems(listOfPC);
+		List<PriceChanged> cached = getTokenList();
+		PriceChangedDto dto = new PriceChangedDto();
+	    dto.setItems(cached);
 	    SocketHandler.broadcast(dto);
 	    Gson gson = new Gson();
 		String jsonstr = gson.toJson(dto);
 		session.sendMessage(new TextMessage(jsonstr));
+	}
+	
+	public List<PriceChanged> getTokenList() throws IOException {
+		if(cached.isEmpty()) {
+			List<BlockchainToken> tokens = tokenService.getTokens();
+			List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
+		    for(BlockchainToken token : tokens) {
+		    	EtherscanTokenItem eti = tokenService.getEtherscanTokenItem(token);
+				String price = eti.getPriceString();
+				PriceChanged pc = buildPriceChanged(token, eti);
+		    	listOfPC.add(pc);
+		    }
+		    replacePcInCache(cached, listOfPC);
+		}
+		return cached;
 	}
 	
 }
