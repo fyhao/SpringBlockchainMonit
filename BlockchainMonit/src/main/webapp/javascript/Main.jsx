@@ -33,6 +33,8 @@ ReactDOM.render(
 webpack serve --mode development --entry ./src/main/webapp/javascript/Main.jsx --output-path ./src/main/resources/static/dist --port 8081 --liveReload
 webpack --mode development --entry ./src/main/webapp/javascript/Main.jsx --output-path ./src/main/resources/static/dist --stats-error-details
 
+when in github codespaces run
+"node_modules/webpack-cli/bin/cli.js" --mode development --entry ./src/main/webapp/javascript/Main.jsx --output-path ./src/main/resources/static/dist --stats-error-details
 
 file upload spring boot react
 https://www.devglan.com/react-js/file-upload-react-spring-rest
