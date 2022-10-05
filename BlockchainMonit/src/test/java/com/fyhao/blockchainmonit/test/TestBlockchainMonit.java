@@ -39,7 +39,7 @@ public class TestBlockchainMonit {
 		List<BlockchainToken> list = tokenService.getTokens();
 		assertThat(list).isNotEmpty();
 	}
-	
+	/*
 	@Test
 	public void testGetPrices() throws IOException, URISyntaxException {
 		List<BlockchainToken> list = tokenService.getTokens();
@@ -51,5 +51,5 @@ public class TestBlockchainMonit {
 			log.info("getprice token {} price {}", token.getName(), price);
 		}
 	}
-	
+	*/
 }
