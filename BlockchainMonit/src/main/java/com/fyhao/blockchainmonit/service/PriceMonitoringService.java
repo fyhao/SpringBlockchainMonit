@@ -36,9 +36,14 @@ public class PriceMonitoringService {
 		tokenService = svc;
 	}
 	
+	boolean isUnitTestMode = false;
+	public void setUnitTestMode() {
+		isUnitTestMode = true;
+	}
+	
 	@Scheduled(fixedDelay = 60000)
 	public void scheduleFixedRateTask() throws Exception {
-		if(SocketHandler.sessions.size() == 0) return;
+		if(!isUnitTestMode && SocketHandler.sessions.size() == 0) return;
 	    List<BlockchainToken> tokens = tokenService.getTokens();
 	    List<PriceChanged> listOfPC = new ArrayList<PriceChanged>();
 	    for(BlockchainToken token : tokens) {

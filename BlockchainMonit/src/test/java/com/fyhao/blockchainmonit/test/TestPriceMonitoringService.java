@@ -38,6 +38,7 @@ public class TestPriceMonitoringService {
 	@Test
 	public void testPriceMonitoring() throws Exception {
 		pmSvc.cached.clear();
+		pmSvc.setUnitTestMode();
 		MockTokenService mtsvc = new MockTokenService();
 		pmSvc.setTokenService(mtsvc);
 		assertThat(pmSvc.cached).isEmpty();
