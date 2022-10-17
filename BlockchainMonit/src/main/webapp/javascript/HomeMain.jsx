@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import TokenGridView from './TokenGridView'
 const HomeMain = (props) => {
+  const [getStartedClicked, setGetStartedClicked] = useState(false);
+  var handleGetStartedClick = () => {
+  	setGetStartedClicked(true);
+  };
   return (
     <>
       <div className="home-main-container">
@@ -25,11 +30,11 @@ const HomeMain = (props) => {
                 Best DEFI in the world
               </span>
               <div className="home-main-container1">
-                <button className="button button-gradient">Get started</button>
+                <Button className="button button-gradient" onClick={handleGetStartedClick} role="getStartedBtn">Get Started</Button>
               </div>
             </div>
             <div className="home-main-feature-card">
-              <TokenGridView />
+              {getStartedClicked ? <TokenGridView /> : ''}
             </div>
           </div>
         </div>

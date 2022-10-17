@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SocketHandler extends TextWebSocketHandler {
 	
-	static List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+	public static List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 	
 	@Autowired
 	PriceMonitoringService priceMonService;
