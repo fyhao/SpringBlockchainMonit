@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import TokenGridView from './TokenGridView'
+import { useI18n } from './i18n';
 const HomeMain = (props) => {
+  const { t } = useI18n();
   const [getStartedClicked, setGetStartedClicked] = useState(false);
   var handleGetStartedClick = () => {
   	setGetStartedClicked(true);
@@ -13,24 +15,18 @@ const HomeMain = (props) => {
           <div className="home-main-max-width max-width">
             <div className="home-main-content">
               <span className="home-main-subtitle before-Heading">
-                Blockchain Monit system
+                {t('subtitle')}
               </span>
               <h1 className="home-main-title">
                 <span className="home-main-text">
-                  Unlock the next generation blockchain
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: ' ',
-                    }}
-                  />
+                  {t('title')}
                 </span>
-                <span className="home-main-text1">experience</span>
               </h1>
               <span className="home-main-description">
-                Best DEFI in the world
+                {t('description')}
               </span>
               <div className="home-main-container1">
-                <Button className="button button-gradient" onClick={handleGetStartedClick} role="getStartedBtn">Get Started</Button>
+                <Button className="button button-gradient" onClick={handleGetStartedClick} role="getStartedBtn">{t('getStarted')}</Button>
               </div>
             </div>
             <div className="home-main-feature-card">
