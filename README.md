@@ -14,7 +14,7 @@ A Spring Boot and React dashboard that polls configured blockchain explorers and
 
 ## Local development
 
-Requirements: JDK 11 and Node.js 18 or 20.
+Requirements: JDK 17 and Node.js 18 or 20.
 
 ```bash
 cd BlockchainMonit

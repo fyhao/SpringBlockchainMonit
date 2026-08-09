@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jdk-jammy AS build
+FROM eclipse-temurin:17-jdk-jammy AS build
 
 ARG NODE_VERSION=18.20.8
 RUN apt-get update \
@@ -12,7 +12,7 @@ WORKDIR /workspace
 COPY BlockchainMonit/ ./
 RUN chmod +x gradlew && ./gradlew --no-daemon clean bootJar
 
-FROM eclipse-temurin:11-jre-jammy
+FROM eclipse-temurin:17-jre-jammy
 RUN useradd --system --uid 10001 spring
 WORKDIR /app
 COPY --from=build /workspace/build/libs/BlockchainMonit-0.1.0.jar app.jar
