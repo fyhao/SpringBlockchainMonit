@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { Navbar, Nav, Form, FormControl, Button, NavItem } from 'react-bootstrap';
 import ListView from './ListView';
 import TokenInfoView from './TokenInfoView';
-class TokenGridView extends Component {
+import { useI18n } from './i18n';
+
+const withI18n = Wrapped => props => {
+  const i18n = useI18n();
+  return <Wrapped {...props} i18n={i18n} />;
+};
+export class TokenGridView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +28,8 @@ class TokenGridView extends Component {
 	}
 	new_uri += "//" + loc.host;
 	new_uri += "/priceservice";
-	var ws = new WebSocket(new_uri);
+	this.ws = new WebSocket(new_uri);
+	var ws = this.ws;
 	ws.onmessage = e => {
 		var data = JSON.parse(e.data);
 		me.updateAndBroadcast(data);
@@ -36,6 +43,7 @@ class TokenGridView extends Component {
 	if(!data.items || !data.items.length) return;
 	for(var j = 0; j < data.items.length; j++) {
 		var item = data.items[j];
+		found = false;
 		for(var i = 0; i < listviewdata.length; i++) {
 			if(listviewdata[i].name == item.name
 				&& listviewdata[i].network == item.network) {
@@ -48,9 +56,11 @@ class TokenGridView extends Component {
 			listviewdata.push(item);
 		}
 	}
-	console.log(listviewdata);
 	me.setState({listviewdata});
 	
+  }
+  componentWillUnmount() {
+    if (this.ws) this.ws.close();
   }
   
   
@@ -74,9 +84,9 @@ class TokenGridView extends Component {
 		return <span>{v} <br />({row['lastUpdatedTime']})</span>;
 	};
 	options.fields = [
-		{heading:'Name',key:'name',clickable:true,clickablestyle:{'fontWeight':'bold'},render:renderName},
-		{heading:'Network',key:'network',clickable:true},
-		{heading:'Price',key:'price',render:renderPrice,clickable:true}
+		{heading:this.props.i18n.t('name'),key:'name',clickable:true,clickablestyle:{'fontWeight':'bold'},render:renderName},
+		{heading:this.props.i18n.t('network'),key:'network',clickable:true},
+		{heading:this.props.i18n.t('price'),key:'price',render:renderPrice,clickable:true}
 	];
 	
 	options.handleGridCellClick = (row, fieldkey, fieldvalue) => {
@@ -112,10 +122,10 @@ class TokenGridView extends Component {
       <div>
         {listviewcontent}
         {tokeninfocontent}
-        {!this.state.listviewdata.length ? <p>Loading...</p> : ''}
+        {!this.state.listviewdata.length ? <p>{this.props.i18n.t('loading')}</p> : ''}
       </div>
     );
   }
 }
 
-export default TokenGridView
+export default withI18n(TokenGridView)

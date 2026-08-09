@@ -10,13 +10,14 @@ import '../css/Main.css';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Navigation from './Navigation';
+import { I18nProvider } from './i18n';
 
 
 class Main extends Component {
     render() {
         return (
             <div id="main">
-                <Navigation />
+                <I18nProvider><Navigation /></I18nProvider>
             </div>
         );
     }

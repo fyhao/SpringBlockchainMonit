@@ -1,6 +1,8 @@
 package com.fyhao.blockchainmonit.controller;
 
 import java.util.List;
+import java.util.Collections;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,4 +27,9 @@ public class APIController {
 	public @ResponseBody List<PriceChanged> getTokenList() throws Exception {
 		return service.getTokenList();
     }
+
+	@RequestMapping("/health")
+	public Map<String, String> health() {
+		return Collections.singletonMap("status", "UP");
+	}
 }

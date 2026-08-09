@@ -1,3 +1,5 @@
 build:
   docker:
-    web: BlockchainMonit/Dockerfile
+    web: Dockerfile
+run:
+  web: java -jar /app/app.jar --server.port=$PORT

@@ -5,6 +5,17 @@ import Home from './Home';
 import ee from './EventManager';
 import { NavLink,NavItem,Alert } from 'reactstrap';
 import * as MyConstants from './MyConstants';
+import { useI18n } from './i18n';
+
+function LanguageSwitcher() {
+  const { locale, localeNames, setLocale, t } = useI18n();
+  return <label className="text-light mb-0 mr-3">
+    <span className="sr-only">{t('language')}</span>
+    <select aria-label={t('language')} value={locale} onChange={event => setLocale(event.target.value)}>
+      {Object.entries(localeNames).map(([code, name]) => <option key={code} value={code}>{name}</option>)}
+    </select>
+  </label>;
+}
 class Navigation extends Component {
 	
   constructor(props) {
@@ -43,23 +54,25 @@ class Navigation extends Component {
   }
   
   render() {
+    const LocalizedNavigation = () => {
+      const { t } = useI18n();
+      return <>
+        <NavItem><NavLink onClick={() => {ee.emit('navigatePage',{page:<Home />})}} href="#">{t('home')}</NavLink></NavItem>
+        <div className="ml-auto d-flex align-items-center">
+          <LanguageSwitcher />
+          <NavItem><Button variant="outline-light" onClick={this.handleLogoutClick}>{t('logout')}</Button></NavItem>
+        </div>
+      </>;
+    };
     return (
       <div>
         <div>
           <Navbar className="navbar navbar-expand-lg navbar-dark bg-primary">
             <Navbar.Brand as={Link} to="/" >Blockchain Monit</Navbar.Brand>
             <Navbar.Collapse>
-              <Nav className="mr-auto" style={{ width: "50%" }}>
-			   
-				<NavItem>
-				  <NavLink onClick={() => {ee.emit('navigatePage',{page:<Home />})}} href="#">Home</NavLink>
-				</NavItem>
+              <Nav className="mr-auto align-items-center" style={{ width: "100%" }}>
+				<LocalizedNavigation />
               </Nav>
-			  <Nav className="ml-auto justify-content-end" style={{ width: "50%" }}>
-	 		    <NavItem>
-				  <Button variant="outline-success" onClick={this.handleLogoutClick}>Logout</Button>
-				</NavItem>
-			  </Nav>
             </Navbar.Collapse>
           </Navbar>
         </div>
