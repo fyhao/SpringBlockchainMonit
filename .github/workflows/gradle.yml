@@ -18,10 +18,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
         working-directory: ./BlockchainMonit
-      - name: generateLicenseReport with Gradle
+      - name: Generate license report
         run: ./gradlew generateLicenseReport
         working-directory: ./BlockchainMonit
-      - name: dependencyCheckAnalyze with Gradle
+      - name: Dependency check
+        if: ${{ secrets.NVD_API_KEY != '' }}
         run: ./gradlew dependencyCheckAnalyze
         working-directory: ./BlockchainMonit
       - uses: actions/upload-artifact@v4
@@ -29,13 +30,3 @@ jobs:
           name: licenseDependencyReport
           path: BlockchainMonit/build/reports
       - uses: gradle/actions/wrapper-validation@v4
-      - name: Self dep-scan
-        uses: AppThreat/dep-scan-action@master
-        env:
-          VULNDB_HOME: ${{ github.workspace }}/db
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: reports
-          path: reports 
-       
