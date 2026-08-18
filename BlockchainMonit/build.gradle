@@ -53,9 +53,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-jackson2")
 
     implementation("com.h2database:h2:2.1.214")
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.6'
     implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '13.4.0.jre8'
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.6'
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '4.0.1'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '4.0.3'
