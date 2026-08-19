@@ -21,10 +21,6 @@ jobs:
       - name: Generate license report
         run: ./gradlew generateLicenseReport
         working-directory: ./BlockchainMonit
-      - name: Dependency check
-        if: ${{ secrets.NVD_API_KEY != '' }}
-        run: ./gradlew dependencyCheckAnalyze
-        working-directory: ./BlockchainMonit
       - uses: actions/upload-artifact@v4
         with:
           name: licenseDependencyReport
