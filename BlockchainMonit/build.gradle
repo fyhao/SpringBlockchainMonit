@@ -50,7 +50,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-rest:4.1.0")
     implementation("org.springframework.boot:spring-boot-jackson2")
 
-    implementation("com.h2database:h2:2.1.214")
+    implementation("com.h2database:h2:2.4.240")
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.6'
     implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '13.4.0.jre8'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.2.6'
